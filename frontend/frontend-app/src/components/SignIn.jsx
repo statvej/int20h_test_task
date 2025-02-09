@@ -1,11 +1,21 @@
 import { useState } from "react";
 
 import Header from "./Header";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+  
+  const isFormValid =
+    username !== "" && //TODO: add username regex
+    email !== "" && // TODO: Add email regex
+    passwordRegex.test(password); 
+
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -28,6 +38,8 @@ const SignIn = () => {
             <input 
               type="username"
               placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100"
             />
           </div>
@@ -36,6 +48,8 @@ const SignIn = () => {
             <input 
               type="email"
               placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100"
             />
           </div>
@@ -50,12 +64,17 @@ const SignIn = () => {
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
           </div>
-          <button 
-            type="submit"
-            className=" flex flex-col mt-6 w-full bg-black text-white p-3 rounded-lg hover:bg-gray-900"
-          >
-            Register
-          </button>
+          <Link to="/verify" className="hover:cursor-pointer" >
+            <button 
+              type="submit"
+              disabled={!isFormValid}
+              className={`flex flex-col mt-6 w-full p-3 rounded-lg 
+                ${isFormValid ? "bg-black text-white hover:bg-gray-900" : "bg-gray-400 text-gray-600 cursor-not-allowed"}`}
+              // className=" flex flex-col mt-6 w-full bg-black text-white p-3 rounded-lg hover:bg-gray-900"
+            >
+              Register
+            </button>
+          </Link>
         </form>
       </div>
     </div>

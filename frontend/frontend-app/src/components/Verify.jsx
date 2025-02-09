@@ -7,7 +7,7 @@ const Verify = () => {
       <div className="w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md">
         <form className="space-y-4">
           <div className="flex flex-col gap-2.5 text-left">
-            <label className="block text-gray-700 font-medium">Enter you code from Email:</label>
+            <label className="block text-gray-700 font-medium">Enter your code from Email:</label>
             <input 
               type="text"
               placeholder="xx-yy-zz"
