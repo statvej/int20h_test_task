@@ -17,7 +17,7 @@ const Main = () => {
 
   return (
     <div>
-        <Header />
+        <Header/>
         <div className="flex justify-center items-center mt-48">
         <div className="flex flex-col box-border w-96 gap-6 bg-gray-100 shadow-md rounded-2xl items-center border border-gray-100 p-6">
             <h2 className="text-center text-2xl font-light">Search for games</h2>
