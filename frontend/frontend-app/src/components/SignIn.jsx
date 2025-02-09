@@ -21,7 +21,7 @@ const SignIn = () => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       <Header flag='2' />
-      <div className="w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md">
+      <div className="mt-20 w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md">
         <form className="space-y-4">
           <div className="flex flex-col gap-1.5 text-left">
             <label className="block text-gray-700 font-medium">Username</label>
