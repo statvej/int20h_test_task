@@ -1,22 +1,21 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LogIn from './components/LogIn';
-import { GoogleOAuthProvider } from "@react-oauth/google"
+import SignIn from './components/SignIn';
+import Verify from './components/Verify';
+import Main from './components/Main';
 
 function App() {
-  const clientId = import.meta.env.VITE_CLIENT_ID;
   return (
-    <GoogleOAuthProvider clientId={clientId}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<h1>Home</h1>} />
           <Route path="/login" element={<LogIn />} />
-          <Route path="/signin" element={<LogIn />} />
-          <Route path="/verify" element={<LogIn />} />
-          <Route path="/main" element={<LogIn />} />
+          <Route path="/signin" element={<SignIn/>} />
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/main" element={<Main />} />
         </Routes>
       </BrowserRouter>
-    </GoogleOAuthProvider>
   )
 }
 

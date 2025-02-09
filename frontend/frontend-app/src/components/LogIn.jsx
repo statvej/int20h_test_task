@@ -14,7 +14,7 @@ const LogIn = () => {
   return (
     <div className='flex flex-col min-h-screen'>
       <header className='w-full h-[92px] flex justify-between items-center px6 bg-gray-100 shadow-md'>
-        <h1 className='text-xl fo'></h1>
+        <h1 className='text-xl fo'>asdsad</h1>
       </header>
     </div>
   )
