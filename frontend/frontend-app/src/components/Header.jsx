@@ -2,21 +2,22 @@ import { CircleFadingPlus, UserRound } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="fixed top-0 left-0 flex w-full h-16 justify-around items-center bg-gray-900 shadow-md px-4">
-        <div className="text-white">QuizQuizQuiz</div>
-        <div className="flex items-center space-x-8"> {/* space between buttons */}
-            <div className="flex items-center justify-between">
-                <div className="text-white mr-2">Create your own quiz</div>
-                <button className="cursor-pointer">
-                    <CircleFadingPlus className="text-white h-10 w-10" />
-                </button>
-            </div>
-                <button className="cursor-pointer">
-                    <UserRound className="text-white h-10 w-10" />
-                </button>   
-        </div>
+    <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4"> 
+      <div className="flex items-center">
+        <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1> 
+      </div>
+
+      <div className="flex items-center"> 
+        <button className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
+          <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
+          Create Your Own Quiz
+        </button>
+        <button className="cursor-pointer ml-auto"> {/* Added ml-auto to push the button to the right */}
+          <UserRound className="text-white h-8 w-8" />
+        </button>
+      </div>
     </header>
-  )
-}
+  );
+};
 
 export default Header;
