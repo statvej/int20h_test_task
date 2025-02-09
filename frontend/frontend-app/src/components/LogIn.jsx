@@ -1,18 +1,12 @@
 import '../App.css'
 // import { GoogleLogin } from '@react-oauth/google';
 import google from '/google.png'
+import Header from "./Header";
 
 const LogIn = () => {
-  // const responseMessage = (response) => {
-  //   console.log(response);
-  // };
-  
-  // const errorMessage = (error) => {
-  //     console.log(error);
-  // };
-
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
+      <Header flag='0' />
       <div className="w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md">
         <form className="space-y-4">
           <div className="flex flex-col gap-3.5 text-left">
