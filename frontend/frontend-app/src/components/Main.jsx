@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import Header from "./Header";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const user = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    if (!user.userName) {
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   return (
     <div>
