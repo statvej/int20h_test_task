@@ -1,15 +1,14 @@
 import '../App.css';
-import { useGoogleLogin } from '@react-oauth/google'; //googleLogout
+import { useGoogleLogin } from '@react-oauth/google';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch } from "react-redux"; //useSelector
-import { setUser } from "../store/Slices/UserSlice"; //clearUser
+import { useDispatch } from "react-redux";
+import { setUser } from "../store/Slices/UserSlice";
 import Header from "./Header";
 
 const LogIn = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const user = useSelector((state) => state.user); // Get user from Redux
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
@@ -24,7 +23,7 @@ const LogIn = () => {
                     dispatch(setUser({
                         userName: res.data.name,
                         email: res.data.email,
-                        picture: res.data.picture, // Save profile picture
+                        picture: res.data.picture,
                     }));
                     navigate('/main');
                 })
