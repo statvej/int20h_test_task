@@ -1,20 +1,9 @@
 import '../App.css';
 import Header from "./Header";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserRound } from "lucide-react";
 
 
 const GameInfo = () => {
-  const user = useSelector((state) => state.user);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user.userName) {
-      navigate("/login");
-    }
-  }, [user, navigate]);
 
     return (
         <div className="bg-gray-100 min-h-screen">
@@ -58,9 +47,9 @@ const GameInfo = () => {
                 <div className="mt-6">
                     <h2 className="text-xl font-semibold">Recommended</h2>
                     <div className="flex space-x-4 mt-2">
-                        <div className="w-24 h-24 bg-gray-300 rounded-lg"></div>
-                        <div className="w-24 h-24 bg-gray-300 rounded-lg"></div>
-                        <div className="w-24 h-24 bg-gray-300 rounded-lg"></div>
+                    {[1, 2, 3, 4].map((game) => (
+                        <div className="w-24 h-24 bg-gray-300 rounded-lg" key={game}></div>
+                    ))}
                     </div>
                 </div>
             </div>
