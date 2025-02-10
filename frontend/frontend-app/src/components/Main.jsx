@@ -6,9 +6,9 @@ import MainGameCards from "./MainGameCards";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const [searchTerm, setSearchTerm] = useState("");
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (!user.userName) {

@@ -4,6 +4,7 @@ import { googleLogout } from "@react-oauth/google";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from 'lucide-react'; 
 import ImgPlaceholder from "/ImgPlaceholder.png";
+import { useEffect } from "react";
 
 const UserProfile = () => {
   const profile = useSelector((state) => state.user);
@@ -19,6 +20,12 @@ const UserProfile = () => {
     dispatch(clearUser());
     navigate("/login");
   };
+  
+  useEffect(() => {
+    if (!profile.userName) {
+      navigate("/login");
+    }
+  }, [profile, navigate]);
 
   const user = {
     rating: 1.1,
