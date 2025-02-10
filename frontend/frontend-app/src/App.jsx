@@ -4,6 +4,7 @@ import LogIn from './components/LogIn';
 import SignIn from './components/SignIn';
 import Verify from './components/Verify';
 import Main from './components/Main';
+import UserProfile from './components/UserProfile';
 import GameInfo from './components/GameInfo';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
           <Route path="/verify" element={<Verify />} />
           <Route path="/info" element={<GameInfo />} />
           <Route path="/" element={<Main />} />
+          <Route path="/profile" element={<UserProfile />}/>
         </Routes>
       </BrowserRouter>
   )

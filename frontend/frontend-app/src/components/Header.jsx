@@ -2,8 +2,10 @@ import { Link } from "react-router-dom";
 /* eslint-disable react/prop-types */
 import { CircleFadingPlus, UserRound } from "lucide-react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Header = (props) => {
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   console.log(props.userPic);
   if (props.flag === '0') {
@@ -56,7 +58,7 @@ const Header = (props) => {
           <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
           Create Your Own Quiz
         </button>
-        <button className="cursor-pointer ml-auto"> {/* Added ml-auto to push the button to the right */}
+        <button onClick={() => navigate('/profile')} className="cursor-pointer ml-auto">
         {!user.picture ? <UserRound className="text-white h-6 w-6 ml-4"/> : <img src={user.picture} alt="User" className="h-6 w-6 ml-4 rounded-full"/>}
         </button>
       </div>

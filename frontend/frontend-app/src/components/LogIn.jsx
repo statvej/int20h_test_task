@@ -32,11 +32,6 @@ const LogIn = () => {
         onError: (error) => console.log('Login Failed:', error),
     });
 
-    // const logOut = () => {
-    //     googleLogout();
-    //     dispatch(clearUser());
-    // };
-
     return (
         <div className="flex flex-col min-h-screen items-center justify-center">
           <Header flag='0' />
