@@ -4,12 +4,13 @@ import { X } from "lucide-react";
 
 const QuizCreationForm = () => {
   const [questions, setQuestions] = useState([]);
+  const [testTimer, setTestTimer] = useState(""); // State to store the test-level timer (in minutes)
 
   const addQuestion = () => {
-    if(questions.length >= 10) return;
+    if (questions.length >= 10) return;
     setQuestions([
       ...questions,
-      { type: "single", text: "", answers: [""], correct: [], image: "" },
+      { type: "single", text: "", answers: [""], correct: [], image: "", timer: 0 },
     ]);
   };
 
@@ -25,7 +26,7 @@ const QuizCreationForm = () => {
   };
 
   const addAnswer = (qIndex) => {
-    if(questions[qIndex].answers.length >= 4) return;
+    if (questions[qIndex].answers.length >= 4) return;
     const updatedQuestions = [...questions];
     updatedQuestions[qIndex].answers.push("");
     setQuestions(updatedQuestions);
@@ -91,11 +92,32 @@ const QuizCreationForm = () => {
     }
   };
 
+  const handleTestTimerChange = (e) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setTestTimer(value); // Only allow numeric input for timer
+    }
+  };
+
   return (
     <div>
       <Header />
       <div className="max-w-4xl mx-auto p-6 mt-32 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold border-b pb-4">Create a Quiz</h2>
+        
+        {/* Test Timer Input */}
+        <div className="mt-4">
+          <label className="block text-sm font-medium text-gray-700">Set Timer (in minutes)</label>
+          <input
+            type="text"
+            value={testTimer}
+            onChange={handleTestTimerChange}
+            placeholder="Enter test duration in minutes"
+            className="w-full p-2 border rounded"
+          />
+        </div>
+
+        {/* Display questions and options */}
         {questions.map((question, qIndex) => (
           <div key={qIndex} className="mt-4 p-4 border rounded-lg">
             <div
