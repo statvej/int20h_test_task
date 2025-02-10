@@ -14,7 +14,7 @@ resource "aws_secretsmanager_secret" "db_secret" {
 }
 
 resource "aws_secretsmanager_secret_version" "db_secret_version" {
-  secret_id = aws_secretsmanager_secret.db_secret.id
+  secret_id     = aws_secretsmanager_secret.db_secret.id
   secret_string = jsonencode({
     username = var.db_username
     password = random_password.db_password.result
@@ -22,6 +22,7 @@ resource "aws_secretsmanager_secret_version" "db_secret_version" {
     host     = aws_db_instance.postgres.endpoint
     port     = var.db_port
   })
+  depends_on = [aws_db_instance.postgres]
 }
 
 # PostgreSQL Database
@@ -44,7 +45,7 @@ resource "aws_eks_cluster" "cluster" {
   role_arn = aws_iam_role.cluster.arn
 
   vpc_config {
-    subnet_ids = aws_subnet.private[*].id
+    subnet_ids = aws_subnet.public[*].id
   }
 }
 
@@ -52,7 +53,7 @@ resource "aws_eks_node_group" "node_group" {
   cluster_name    = aws_eks_cluster.cluster.name
   node_group_name = var.node_group_name
   node_role_arn   = aws_iam_role.node_group.arn
-  subnet_ids      = aws_subnet.private[*].id
+  subnet_ids      = aws_subnet.public[*].id
 
   scaling_config {
     desired_size = var.desired_size
@@ -69,7 +70,7 @@ resource "aws_lb" "loadbalancer" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.lb_sg.id]
-  subnets            = aws_subnet.private[*].id
+  subnets            = aws_subnet.public[*].id
 }
 
 # Load Balancer Listener for Frontend
@@ -173,16 +174,56 @@ resource "aws_iam_role" "node_group" {
   })
 }
 
+# Attach Internet Gateway to VPC
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+}
+
+resource "aws_route_table" "public" {
+  vpc_id = aws_vpc.main.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+}
+
+resource "aws_route_table_association" "public_a" {
+  subnet_id      = aws_subnet.public[0].id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "public_b" {
+  subnet_id      = aws_subnet.public[1].id
+  route_table_id = aws_route_table.public.id
+}
+
+# Ensure Correct IAM Role for EKS Node Group
+resource "aws_iam_role_policy_attachment" "node_group_policy" {
+  role       = aws_iam_role.node_group.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "cni_policy" {
+  role       = aws_iam_role.node_group.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
+}
+
+resource "aws_iam_role_policy_attachment" "registry_policy" {
+  role       = aws_iam_role.node_group.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
 # VPC and Subnets
 resource "aws_vpc" "main" {
   cidr_block = "10.0.0.0/16"
 }
 
-resource "aws_subnet" "private" {
+resource "aws_subnet" "public" {
   count             = 2
   vpc_id            = aws_vpc.main.id
   cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index)
-  availability_zone = element(data.aws_availability_zones.available.names, count.index)
+  availability_zone = data.aws_availability_zones.available.names[count.index]
 }
 
 # Data Sources

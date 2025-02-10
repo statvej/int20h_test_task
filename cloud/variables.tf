@@ -43,13 +43,13 @@ variable "min_size" {
 variable "db_name" {
   description = "Name of the PostgreSQL database"
   type        = string
-  default     = "think-exe-db"
+  default     = "app"
 }
 
 variable "db_username" {
   description = "Username for the PostgreSQL database"
   type        = string
-  default     = "think-exe-admin"
+  default     = "admin"
 }
 
 variable "db_port" {

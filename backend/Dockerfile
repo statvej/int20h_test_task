@@ -1,4 +1,10 @@
-FROM ubuntu:latest
-LABEL authors="A200273858"
+FROM amazoncorretto:21
 
-ENTRYPOINT ["top", "-b"]
+WORKDIR /app
+
+COPY app/build/libs/*.jar app.jar
+
+EXPOSE 8080
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
