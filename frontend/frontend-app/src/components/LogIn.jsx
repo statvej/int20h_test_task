@@ -25,7 +25,7 @@ const LogIn = () => {
                         email: res.data.email,
                         picture: res.data.picture,
                     }));
-                    navigate('/main');
+                    navigate('/');
                 })
                 .catch((err) => console.log(err));
         },
