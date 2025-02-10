@@ -12,13 +12,13 @@ const Header = (props) => {
     return (
       <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4"> 
         <div className="flex items-center">
-          <Link to="/login" className="hover:cursor-pointer">
+          <Link to="/login" className="cursor-pointer">
             <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
           </Link>
         </div>
   
         <div className="flex items-center">
-          <Link to="/signin" className="hover:cursor-pointer" > 
+          <Link to="/signin" className="cursor-pointer" > 
             <button className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
               <CircleFadingPlus className="text-white h-6 w-6 mr-2"/>
               Sign Up
@@ -31,13 +31,13 @@ const Header = (props) => {
     return (
     <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4"> 
       <div className="flex items-center">
-        <Link to="/login" className="hover:cursor-pointer" >
+        <Link to="/login" className="cursor-pointer" >
             <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
         </Link>
       </div>
 
       <div className="flex items-center">
-        <Link to="/login" className="hover:cursor-pointer" > 
+        <Link to="/login" className="cursor-pointer" > 
           <button className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
             <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
             Sign in
