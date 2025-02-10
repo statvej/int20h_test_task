@@ -47,7 +47,7 @@ const QuizCreationForm = () => {
             <select
                 value={question.type}
                 onChange={(e) => updateQuestion(qIndex, "type", e.target.value)}
-                className="mt-2 w-full p-2 border rounded"
+                className="mt-2 w-full p-2 border rounded cursor-pointer"
             >
                 <option value="single">Single Choice</option>
                 <option value="multiple">Multiple Choice</option>
@@ -55,7 +55,7 @@ const QuizCreationForm = () => {
             </select>
 
             {question.type !== "text" && (
-                <div className="mt-2 space-y-2">
+                <div className="mt-2 space-y-2 ">
                 {question.answers.map((answer, aIndex) => (
                     <div key={aIndex} className="flex items-center gap-2">
                     <input
@@ -74,7 +74,7 @@ const QuizCreationForm = () => {
                 ))}
                 <button
                     onClick={() => updateQuestion(qIndex, "answers", [...question.answers, ""])}
-                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded"
+                    className="mt-2 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
                 >
                     Add Answer
                 </button>
@@ -83,7 +83,7 @@ const QuizCreationForm = () => {
             </div>
         ))}
 
-        <button onClick={addQuestion} className="mt-4 px-4 py-2 bg-green-500 text-white rounded">
+        <button onClick={addQuestion} className="mt-4 px-4 py-2 bg-green-500 text-white rounded cursor-pointer">
             Add Question
         </button>
         </div>

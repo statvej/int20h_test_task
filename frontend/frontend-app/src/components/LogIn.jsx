@@ -65,7 +65,7 @@ const LogIn = () => {
                 <div className="mt-4 flex flex-col items-center space-y-3">
                         <button 
                             onClick={login} 
-                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                            className="cursor-pointer bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
                         >
                             Sign in with Google 🚀
                         </button>

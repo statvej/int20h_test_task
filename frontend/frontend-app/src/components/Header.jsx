@@ -19,7 +19,7 @@ const Header = (props) => {
 
         <div className="flex items-center">
           <Link to="/signin" className="cursor-pointer">
-            <button className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
+            <button className="cursor-pointer flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
               <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
               Sign Up
             </button>
@@ -38,7 +38,7 @@ const Header = (props) => {
 
         <div className="flex items-center">
           <Link to="/login" className="cursor-pointer">
-            <button className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
+            <button className="cursor-pointer flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
               <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
               Sign in
             </button>
@@ -56,24 +56,26 @@ const Header = (props) => {
         </div>
 
         <div className="flex items-center">
-          <button className="flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
-            <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
-            Create Your Own Quiz
-          </button>
+          <Link to="/create" className="cursor-pointer">
+            <button className="cursor-pointer flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
+              <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
+              Create Your Own Quiz
+            </button>
+          </Link>
           <button
             onClick={() => navigate("/profile")}
-            className="cursor-pointer ml-auto"
+            className="cursor-pointer ml-auto "
           >
             {!user.picture ? (
               <button onClick={() => navigate("/create")}>
-                <UserRound className="text-white h-6 w-6 ml-4" />
+                <UserRound className="text-white h-6 w-6 ml-4 cursor-pointer" />
               </button>
             ) : (
               <button>
                 <img
                   src={user.picture}
                   alt="User"
-                  className="h-6 w-6 ml-4 rounded-full"
+                  className="h-6 w-6 ml-4 rounded-full cursor-pointer"
                 />
               </button>
             )}

@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import ImgPlaceholder from "/ImgPlaceholder.png";
 import { useEffect } from "react";
 import Header from "./Header";
+import MainGameCards from "./MainGameCards";
 
 const UserProfile = () => {
   const profile = useSelector((state) => state.user);
@@ -50,7 +51,7 @@ const UserProfile = () => {
         <div className="flex items-center justify-around">
           <button
             onClick={handleBack}
-            className="bg-gray-200 p-2 rounded-full hover:bg-gray-300"
+            className="cursor-pointer bg-gray-200 p-2 rounded-full hover:bg-gray-300"
           >
             <ArrowLeft size={20} />
           </button>
@@ -75,7 +76,7 @@ const UserProfile = () => {
           </div>
           <button
             onClick={handleLogout}
-            className="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition"
+            className="cursor-pointer bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition "
           >
             Logout
           </button>
@@ -101,16 +102,9 @@ const UserProfile = () => {
             {user.createdGames.map((game, index) => (
               <div
                 key={index}
-                className="bg-white shadow-md rounded-lg overflow-hidden"
+                className="bg-white shadow-md rounded-lg "
               >
-                <img
-                  src={ImgPlaceholder}
-                  alt={game.name}
-                  className="w-full object-cover h-32"
-                />
-                <div className="p-2 text-center">
-                  <h4 className="text-sm font-semibold">{game.name}</h4>
-                </div>
+                <MainGameCards />
               </div>
             ))}
           </div>

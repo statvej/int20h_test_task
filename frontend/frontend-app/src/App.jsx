@@ -8,6 +8,7 @@ import UserProfile from "./components/UserProfile";
 import GameInfo from "./components/GameInfo";
 import QuizCreationForm from "./components/CreateQuiz";
 import { ErrorBoundary } from "react-error-boundary";
+import GamePage from "./components/GamePage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/create" element={<QuizCreationForm />} />
+          <Route path="/game" element={<GamePage />} />
           <Route
             path="*"
             element={
