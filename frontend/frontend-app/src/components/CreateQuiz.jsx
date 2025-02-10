@@ -6,6 +6,7 @@ const QuizCreationForm = () => {
   const [questions, setQuestions] = useState([]);
 
   const addQuestion = () => {
+    if(questions.length >= 10) return;
     setQuestions([
       ...questions,
       { type: "single", text: "", answers: [""], correct: [], image: "" },
@@ -24,6 +25,7 @@ const QuizCreationForm = () => {
   };
 
   const addAnswer = (qIndex) => {
+    if(questions[qIndex].answers.length >= 4) return;
     const updatedQuestions = [...questions];
     updatedQuestions[qIndex].answers.push("");
     setQuestions(updatedQuestions);
