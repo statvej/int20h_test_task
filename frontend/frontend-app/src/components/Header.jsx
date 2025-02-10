@@ -12,7 +12,7 @@ const Header = (props) => {
     return (
       <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4"> 
         <div className="flex items-center">
-          <Link to="/login" className="cursor-pointer">
+          <Link to="/" className="cursor-pointer">
             <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
           </Link>
         </div>
@@ -31,7 +31,7 @@ const Header = (props) => {
     return (
     <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4"> 
       <div className="flex items-center">
-        <Link to="/login" className="cursor-pointer" >
+        <Link to="/" className="cursor-pointer" >
             <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
         </Link>
       </div>
@@ -50,7 +50,9 @@ const Header = (props) => {
     return (
     <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4"> 
       <div className="flex items-center">
-        <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1> 
+        <Link to="/" className="cursor-pointer" > 
+          <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
+        </Link> 
       </div>
 
       <div className="flex items-center"> 
