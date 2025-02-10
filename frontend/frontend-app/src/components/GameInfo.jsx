@@ -5,6 +5,7 @@ import { UserRound } from "lucide-react";
 import StarRating from "./Star";
 import { useState } from "react";
 import MainGameCards from "./MainGameCards";
+import { Link } from "react-router-dom";
 
 const GameInfo = () => {
     const [rating, setRating] = useState(3);
@@ -17,13 +18,15 @@ const GameInfo = () => {
                     <div className="w-1/3 flex flex-col">
                         <div className="flex items-center gap-2">
                             <div className="flex flex-col">
-                                <UserRound className="h-20 w-20 rounded-full" />
+                                <Link to="#" className="cursor-pointer">
+                                    <UserRound className="h-20 w-20 rounded-full" />
+                                </Link>
                                 <p className="text-xs text-gray-500">Irina R15</p>
                             </div>
                             <div>
                                 <h1 className="text-left text-xl font-semibold">Game Name</h1>
                                 <p className="text-left text-gray-500">5 questions</p>
-                                <button className="mt-1 bg-black text-white px-13 py-0.5 rounded">Play</button>
+                                <button className="cursor-pointer mt-1 bg-black text-white px-13 py-0.5 rounded hover:bg-gray-900">Play</button>
                             </div>
                         </div>
                             <h2 className="text-left font-semibold">Description:</h2>
