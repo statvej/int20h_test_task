@@ -13,7 +13,6 @@ const GameInfo = () => {
     return (
         <div className="flex justify-center items-center bg-gray-100 min-h-screen">
             <Header flag="1" />
-
             <div className="max-w-4xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
                 <div className="mt-8 flex gap-4">
                     <div className="w-1/3 flex flex-col">

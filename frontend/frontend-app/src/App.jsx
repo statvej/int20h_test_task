@@ -6,6 +6,7 @@ import Verify from './components/Verify';
 import Main from './components/Main';
 import UserProfile from './components/UserProfile';
 import GameInfo from './components/GameInfo';
+import QuizCreationForm from './components/CreateQuiz';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/info" element={<GameInfo />} />
           <Route path="/" element={<Main />} />
           <Route path="/profile" element={<UserProfile />}/>
+          <Route path="/create" element={<QuizCreationForm/>} />
         </Routes>
       </BrowserRouter>
   )
