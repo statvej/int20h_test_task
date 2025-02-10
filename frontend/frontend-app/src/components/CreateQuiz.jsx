@@ -10,7 +10,14 @@ const QuizCreationForm = () => {
     if (questions.length >= 10) return;
     setQuestions([
       ...questions,
-      { type: "single", text: "", answers: [""], correct: [], image: "", timer: 0 },
+      {
+        type: "single",
+        text: "",
+        answers: [""],
+        correct: [],
+        image: "",
+        timer: 0,
+      },
     ]);
   };
 
@@ -104,11 +111,14 @@ const QuizCreationForm = () => {
       <Header />
       <div className="max-w-4xl mx-auto p-6 mt-32 bg-white shadow-lg rounded-lg">
         <h2 className="text-2xl font-semibold border-b pb-4">Create a Quiz</h2>
-        
+
         {/* Test Timer Input */}
         <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">Set Timer (in minutes)</label>
+          <label className="block text-sm font-medium text-gray-700">
+            Set Timer (in minutes)
+          </label>
           <input
+            min={1}
             type="text"
             value={testTimer}
             onChange={handleTestTimerChange}
@@ -125,6 +135,7 @@ const QuizCreationForm = () => {
               className="relative"
             >
               <input
+                min={1}
                 type="text"
                 placeholder="Enter question... or/and paste an image"
                 value={question.text}
@@ -155,6 +166,7 @@ const QuizCreationForm = () => {
                   Correct Answer
                 </label>
                 <input
+                  min={1}
                   type="text"
                   value={question.correct}
                   onChange={(e) =>
@@ -175,6 +187,7 @@ const QuizCreationForm = () => {
                       onChange={() => toggleCorrectAnswer(qIndex, aIndex)}
                     />
                     <input
+                      min={1}
                       type="text"
                       value={answer}
                       placeholder="Enter answer..."
