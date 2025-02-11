@@ -18,11 +18,9 @@ const Header = (props) => {
         </div>
 
         <div className="flex items-center">
-          <Link to="/signin" className="cursor-pointer">
-            <button className="cursor-pointer flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
+          <Link to="/signin" className="cursor-pointer  flex items-center justify-center bg-gray-800 hover:bg-gray-700 text-white rounded-md px-4 py-2">
               <CircleFadingPlus className="text-white h-6 w-6 mr-2" />
               Sign Up
-            </button>
           </Link>
         </div>
       </header>
