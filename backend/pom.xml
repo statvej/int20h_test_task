@@ -28,14 +28,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-mail</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-oauth2-client</artifactId>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.boot</groupId>-->
-<!--			<artifactId>spring-boot-starter-security</artifactId>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -87,6 +95,11 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.12.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -114,6 +127,35 @@
 						</goals>
 						<configuration>
 							<inputSpec>${project.basedir}/api/user-api.yaml</inputSpec>
+							<generatorName>spring</generatorName>
+							<packageName>com.int20h.quiz.app</packageName> <!-- Update this to your desired package -->
+							<apiPackage>com.int20h.quiz.app.api</apiPackage> <!-- Update this to your desired package -->
+							<modelPackage>com.int20h.quiz.app.model</modelPackage>
+							<generateSupportingFiles>true</generateSupportingFiles>
+							<configOptions>
+								<useTags>true</useTags>
+								<interfaceOnly>true</interfaceOnly>
+								<serializableModel>true</serializableModel>
+								<skipDefaultInterface>true</skipDefaultInterface>
+								<hideGenerationTimestamp>true</hideGenerationTimestamp>
+								<openApiNullable>false</openApiNullable>
+								<useJakartaEe>true</useJakartaEe>
+							</configOptions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>auth-api</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${project.basedir}/api/auth-api.yaml</inputSpec>
 							<generatorName>spring</generatorName>
 							<packageName>com.int20h.quiz.app</packageName> <!-- Update this to your desired package -->
 							<apiPackage>com.int20h.quiz.app.api</apiPackage> <!-- Update this to your desired package -->

@@ -37,7 +37,7 @@ import jakarta.annotation.Generated;
 public interface UserApi {
 
     /**
-     * POST /api/v1/user : Create user
+     * POST /user : Create user
      *
      * @param body  (required)
      * @return User created (status code 201)
@@ -56,7 +56,7 @@ public interface UserApi {
     )
     @RequestMapping(
         method = RequestMethod.POST,
-        value = "/api/v1/user",
+        value = "/user",
         produces = { "application/json" },
         consumes = { "application/json" }
     )
@@ -67,7 +67,7 @@ public interface UserApi {
 
 
     /**
-     * DELETE /api/v1/user/{userId} : Delete user
+     * DELETE /user/{userId} : Delete user
      *
      * @param userId UUID of the user to delete (required)
      * @return successful operation (status code 200)
@@ -86,7 +86,7 @@ public interface UserApi {
     )
     @RequestMapping(
         method = RequestMethod.DELETE,
-        value = "/api/v1/user/{userId}"
+        value = "/user/{userId}"
     )
     
     ResponseEntity<Void> deleteUser(
@@ -95,7 +95,7 @@ public interface UserApi {
 
 
     /**
-     * GET /api/v1/user/{userId} : Get user by user ID
+     * GET /user/{userId} : Get user by user ID
      *
      * @param userId  (required)
      * @return successful operation (status code 200)
@@ -116,7 +116,7 @@ public interface UserApi {
     )
     @RequestMapping(
         method = RequestMethod.GET,
-        value = "/api/v1/user/{userId}",
+        value = "/user/{userId}",
         produces = { "application/json" }
     )
     
@@ -126,7 +126,7 @@ public interface UserApi {
 
 
     /**
-     * PUT /api/v1/user/{userId} : Update user
+     * PUT /user/{userId} : Update user
      *
      * @param userId  (required)
      * @param body  (required)
@@ -148,7 +148,7 @@ public interface UserApi {
     )
     @RequestMapping(
         method = RequestMethod.PUT,
-        value = "/api/v1/user/{userId}",
+        value = "/user/{userId}",
         produces = { "application/json" },
         consumes = { "application/json" }
     )

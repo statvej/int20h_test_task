@@ -11,6 +11,17 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"  # SMTP port for sending emails
+      - "8025:8025"  # Web UI port for viewing emails
+    networks:
+      - mailhog_network
+
+networks:
+  mailhog_network:
+    driver: bridge
 
 volumes:
   postgres_data:

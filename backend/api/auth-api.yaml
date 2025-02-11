@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: Auth API
+  description: Stateless JWT Authentication API
+  version: 1.0.0
+
+paths:
+  /auth/register:
+    post:
+      summary: Register a new user
+      tags:
+        - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterRequest"
+      responses:
+        "201":
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthMessage"
+        "400":
+          description: Bad request
+
+  /auth/login:
+    post:
+      summary: Authenticate and get JWT
+      tags:
+          - auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: Unauthorized
+  /auth/verify:
+    get:
+      summary: Verify email with token
+      tags:
+        - auth
+      parameters:
+        - in: query
+          name: token
+          schema:
+            type: string
+          required: true
+          description: The token to verify the email
+      responses:
+        "200":
+          description: Email verified successful
+          content:
+            application/json:
+              schema:
+                  $ref: "#/components/schemas/AuthMessage"
+components:
+  schemas:
+    RegisterRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+    AuthMessage:
+      type: object
+      properties:
+        message:
+          type: string

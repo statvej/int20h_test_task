@@ -7,7 +7,7 @@ servers:
   - url: http://localhost:8080
     description: Local server
 paths:
-  /api/v1/user/{userId}:
+  /user/{userId}:
     get:
       tags:
         - user
@@ -79,7 +79,7 @@ paths:
           description: Invalid ID supplied
         '404':
           description: User not found
-  /api/v1/user:
+  /user:
     post:
       tags:
         - user

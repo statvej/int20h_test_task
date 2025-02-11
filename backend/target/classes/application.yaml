@@ -8,6 +8,23 @@ app:
     origins: "*"
     headers: "*"
 spring:
+  mail:
+    from: thinkexe@localhost.com
+    host: localhost
+    port: 1025  # MailHog SMTP port
+    username: ""  # No authentication needed
+    password: ""
+    properties:
+      mail:
+        smtp:
+          auth: false  # No authentication required
+          starttls:
+            enable: false  # No TLS required
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
   application:
     name: app
   datasource:
@@ -18,7 +35,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 springdoc:
   api-docs:
@@ -28,3 +45,6 @@ springdoc:
     tags-sorter: alpha
     operations-sorter: alpha
   writer-with-order-by-keys: true
+jwt:
+  secret: mySuperSecretKeyForJWTanditneedstocontainatleast256bits
+  expiration: 3600000
