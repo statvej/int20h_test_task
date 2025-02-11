@@ -1,6 +1,11 @@
 import Header from "./Header";
+import { useState } from "react";
 
 const Verify = () => {
+  const [code, setCode] = useState("");
+  const [isTouched, setIsTouched] = useState(false);
+  const isInvalid = isTouched && code.trim().length === 0;
+
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       <Header flag='2' />
@@ -11,12 +16,22 @@ const Verify = () => {
             <input 
               type="text"
               placeholder="xx-yy-zz"
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100"
-            />
+              className={`w-full p-3 border rounded-lg bg-gray-100 transition ${
+                isInvalid ? "border-red-500" : "border-gray-300"
+              }`}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              onBlur={() => setIsTouched(true)}
+            />  
           </div>
           <button 
             type="submit"
-            className=" flex flex-col mt-6 w-full bg-black text-white p-3 rounded-lg hover:bg-gray-900"
+            className={`mt-6 w-full p-3 rounded-lg text-white transition ${
+              code.trim().length > 0
+                ? "bg-black hover:bg-gray-900"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
+            disabled={code.trim().length === 0}
           >
             Verify
           </button>

@@ -6,12 +6,12 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../store/Slices/UserSlice";
 import Header from "./Header";
 import { useEffect, useState } from "react";
-import usePasswordError from "./Hooks/usePasswordError";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const error = usePasswordError(password);
+  const [isTouched, setIsTouched] = useState({ email: false, password: false });
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -73,6 +73,10 @@ const LogIn = () => {
     onError: (error) => console.error("Login Failed:", error),
   });
 
+  // Проверка валидности
+  const isEmailInvalid = isTouched.email && email.trim().length === 0;
+  const isPasswordInvalid = isTouched.password && password.trim().length === 0;
+
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       <Header flag="0" />
@@ -83,31 +87,44 @@ const LogIn = () => {
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onBlur={() => setIsTouched({ ...isTouched, email: true })}
               type="email"
               placeholder="Email"
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100"
+              className={`w-full p-3 border rounded-lg bg-gray-100 transition ${
+                isEmailInvalid ? "border-red-500" : "border-gray-300"
+              }`}
             />
+            {isEmailInvalid && <p className="text-red-500 text-sm">Email is required!</p>}
           </div>
+
           <div className="flex flex-col gap-3.5 text-left">
             <label className="block text-gray-700 font-medium">Password</label>
             <input
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onBlur={() => setIsTouched({ ...isTouched, password: true })}
               type="password"
               placeholder="Password"
-              className="w-full p-3 border border-gray-300 rounded-lg bg-gray-100"
+              className={`w-full p-3 border rounded-lg bg-gray-100 transition ${
+                isPasswordInvalid ? "border-red-500" : "border-gray-300"
+              }`}
             />
-            {error && <p className="text-red-500 text-sm">{error}</p>}
+            {isPasswordInvalid && <p className="text-red-500 text-sm">Password is required!</p>}
           </div>
+
           <button
             type="submit"
-            className="cursor-pointer mt-6 w-full bg-black text-white p-3 rounded-lg hover:bg-gray-900"
+            className={`cursor-pointer mt-2 w-full p-3 rounded-lg text-white transition ${
+              email.trim().length > 0 && password.trim().length > 0
+                ? "bg-black hover:bg-gray-900"
+                : "bg-gray-400 cursor-not-allowed"
+            }`}
+            disabled={email.trim().length === 0 || password.trim().length === 0}
           >
             Sign In
           </button>
         </form>
 
-        {/* Google Sign-In */}
         <div className="mt-4 flex flex-col items-center space-y-3">
           <button
             onClick={login}

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 const Header = (props) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  console.log(props.userPic);
   if (props.flag === "0") {
     return (
       <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4">
