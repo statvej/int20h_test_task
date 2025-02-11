@@ -17,7 +17,7 @@ const GamePage = () => {
     return (
         <div className="flex flex-col w-full h-screen text-black">
             {/* HEADER */}
-            <Header flag />
+            <Header />
 
             {/* QUIZ CONTENT */}
             <main className="flex-1 flex flex-col justify-center items-center bg-white p-8">
