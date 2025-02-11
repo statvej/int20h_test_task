@@ -5,25 +5,15 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/Slices/UserSlice";
 import Header from "./Header";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import usePasswordError from "./Hooks/usePasswordError";
 
 const LogIn = () => {
-  const passwordRegex = useMemo(() => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const error = usePasswordError(password);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (password && !passwordRegex.test(password)) {
-      setError(
-        "Password must contain at least 8 characters, including at least 1 uppercase letter, 1 lowercase letter, and 1 number."
-      );
-    } else {
-      setError("");
-    }
-  }, [password, passwordRegex]);
 
   useEffect(() => {
     try {
@@ -49,36 +39,36 @@ const LogIn = () => {
 
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
-    try {
-      const res = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
-        {
-        headers: {
-          Authorization: `Bearer ${codeResponse.access_token}`,
-          Accept: "application/json",
-        },
-        }
-      );
+      try {
+        const res = await axios.get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${codeResponse.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        );
 
-      const userData = {
-        data: res.data,
-        way: "google",
-      };
+        const userData = {
+          data: res.data,
+          way: "google",
+        };
 
-      localStorage.setItem("user", JSON.stringify(userData));
-      dispatch(
-        setUser({
-        userName: res.data.name,
-        email: res.data.email,
-        picture: res.data.picture,
-        authMethod: "google",
-        })
-      );
+        localStorage.setItem("user", JSON.stringify(userData));
+        dispatch(
+          setUser({
+            userName: res.data.name,
+            email: res.data.email,
+            picture: res.data.picture,
+            authMethod: "google",
+          })
+        );
 
-      navigate("/");
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
+        navigate("/");
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
     },
     onError: (error) => console.error("Login Failed:", error),
   });
