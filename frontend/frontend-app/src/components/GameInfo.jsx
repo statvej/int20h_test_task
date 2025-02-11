@@ -26,8 +26,8 @@ const GameInfo = () => {
                             <div>
                                 <h1 className="text-left text-xl font-semibold">Game Name</h1>
                                 <p className="text-left text-gray-500">5 questions</p>
-                                <Link to="/game" className="cursor-pointer">
-                                    <button className="cursor-pointer mt-1 bg-black text-white px-13 py-0.5 rounded hover:bg-gray-900">Play</button>
+                                <Link to="/game" className="cursor-pointer mt-1 bg-black text-white px-13 py-0.5 rounded hover:bg-gray-900">
+                                    Play
                                 </Link>
                             </div>
                         </div>
