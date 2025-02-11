@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import usePasswordError from "./Hooks/usePasswordError";
 import Header from "./Header";
 import { Link } from "react-router-dom";
 
@@ -7,8 +7,7 @@ const SignIn = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  
+  const error = usePasswordError(password);
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
   
   const isFormValid =
@@ -18,14 +17,8 @@ const SignIn = () => {
 
 
   const handlePasswordChange = (e) => {
-    const value = e.target.value;
-    setPassword(value);
-
-    if(!passwordRegex.test(value)) {
-      setError("Password must contain at least 8 characters, including at least 1 uppercase letter, 1 lowercase letter, and 1 number.");
-      } else {
-        setError("");
-      }
+      const value = e.target.value;
+      setPassword(value);
     };
 
   return (
