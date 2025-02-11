@@ -21,6 +21,7 @@ const UserProfile = () => {
     googleLogout();
     dispatch(clearUser());
     navigate("/login");
+    localStorage.removeItem("user");
   };
 
   useEffect(() => {

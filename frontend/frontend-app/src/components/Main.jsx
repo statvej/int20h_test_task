@@ -42,13 +42,13 @@ const Main = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-3 gap-20 justify-center mt-20">
+      <section className="grid grid-cols-3 gap-20 justify-center mt-20">
         {[1, 2, 3, 4, 5, 6].map((game) => (
           <div key={game} className="list-none">
             <MainGameCards />
           </div>
         ))}
-      </div>
+      </section>
     </div>
   );
 };
