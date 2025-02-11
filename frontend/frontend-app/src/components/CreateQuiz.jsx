@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 
 const QuizCreationForm = () => {
   const [questions, setQuestions] = useState([]);
-  const [testTimer, setTestTimer] = useState(""); // State to store the test-level timer (in minutes)
+  const [testTimer, setTestTimer] = useState("");
 
   const addQuestion = () => {
     if (questions.length >= 10) return;
