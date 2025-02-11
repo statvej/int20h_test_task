@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Table(name = "Users")
-public class Users {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
@@ -42,6 +43,10 @@ public class Users {
     @Column
     @DecimalMax(value = "5.0")
     private float rating;
+
+    @Column
+    @Size(max = 5242880)
+    private String avatar;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

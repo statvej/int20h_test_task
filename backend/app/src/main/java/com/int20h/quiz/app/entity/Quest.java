@@ -20,7 +20,7 @@ public class Quest {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id")
-    private Users user;
+    private User user;
 
     @OneToOne(mappedBy = "quest", cascade = CascadeType.ALL, orphanRemoval = true)
     private Review review;
