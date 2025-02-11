@@ -1,0 +1,30 @@
+app:
+  name: dev-mode-backend
+  rest:
+    port: 8080
+  probes:
+    port: 8080
+  cors:
+    origins: "*"
+    headers: "*"
+spring:
+  application:
+    name: app
+  datasource:
+    url: jdbc:postgresql://localhost:5432/app
+    username: admin
+    password: admin
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+springdoc:
+  api-docs:
+    path: /openapi
+  swagger-ui:
+    path: /openapi/ui
+    tags-sorter: alpha
+    operations-sorter: alpha
+  writer-with-order-by-keys: true
