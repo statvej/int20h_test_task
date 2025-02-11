@@ -9,6 +9,7 @@ import GameInfo from "./components/GameInfo";
 import QuizCreationForm from "./components/CreateQuiz";
 import { ErrorBoundary } from "react-error-boundary";
 import GamePage from "./components/GamePage";
+import GameResult from "./components/GameResult";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/create" element={<QuizCreationForm />} />
           <Route path="/game" element={<GamePage />} />
+          <Route path="/result" element={<GameResult />} />
           <Route
             path="*"
             element={
