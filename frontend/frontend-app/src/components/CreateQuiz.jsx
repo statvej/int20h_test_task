@@ -185,7 +185,7 @@ const QuizCreationForm = () => {
                     />
                     <button
                       onClick={() => deleteAnswer(qIndex, aIndex)}
-                      className="hover:bg-gray-200 px-2 py-1  text-red-600 rounded"
+                      className="hover:bg-gray-200 px-2 py-1  text-red-600 rounded cursor-pointer"
                     >
                       <X />
                     </button>
