@@ -49,36 +49,36 @@ const LogIn = () => {
 
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
-      try {
-        const res = await axios.get(
-          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
-          {
-            headers: {
-              Authorization: `Bearer ${codeResponse.access_token}`,
-              Accept: "application/json",
-            },
-          }
-        );
+    try {
+      const res = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${codeResponse.access_token}`,
+        {
+        headers: {
+          Authorization: `Bearer ${codeResponse.access_token}`,
+          Accept: "application/json",
+        },
+        }
+      );
 
-        const userData = {
-          data: res.data,
-          way: "google",
-        };
+      const userData = {
+        data: res.data,
+        way: "google",
+      };
 
-        localStorage.setItem("user", JSON.stringify(userData));
-        dispatch(
-          setUser({
-            userName: res.data.name,
-            email: res.data.email,
-            picture: res.data.picture,
-            authMethod: "google",
-          })
-        );
+      localStorage.setItem("user", JSON.stringify(userData));
+      dispatch(
+        setUser({
+        userName: res.data.name,
+        email: res.data.email,
+        picture: res.data.picture,
+        authMethod: "google",
+        })
+      );
 
-        navigate("/");
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
+      navigate("/");
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
     },
     onError: (error) => console.error("Login Failed:", error),
   });
