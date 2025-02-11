@@ -19,11 +19,6 @@ const useCountdownTimer = (minutes) => {
     setIsRunning(true);
   }, [minutes]);
 
-  const resetTimer = useCallback(() => {
-    setIsRunning(false);
-    setTimeLeft(minutes * 60);
-  }, [minutes]);
-
   useEffect(() => {
     startTimer();
   }, [startTimer]);
