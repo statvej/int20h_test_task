@@ -70,7 +70,6 @@ const SignIn = () => {
               disabled={!isFormValid}
               className={`flex flex-col mt-6 w-full p-3 rounded-lg 
                 ${isFormValid ? "bg-black text-white hover:bg-gray-900" : "bg-gray-400 text-gray-600 cursor-not-allowed"}`}
-              // className=" flex flex-col mt-6 w-full bg-black text-white p-3 rounded-lg hover:bg-gray-900"
             >
               Register
             </button>
