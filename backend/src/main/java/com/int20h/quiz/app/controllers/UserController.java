@@ -2,11 +2,13 @@ package com.int20h.quiz.app.controllers;
 
 import com.int20h.quiz.app.api.UserApi;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController implements UserApi {
   @Override
+  @PreAuthorize("hasRole('USER')")
   public ResponseEntity<Object> createUser(Object body) {
     return null;
   }
