@@ -18,12 +18,13 @@ public class QuestController implements QuestApi {
 
     @Override
     public ResponseEntity<QuestDto> createQuest(QuestDto questDto) {
-        return ResponseEntity.ok(questDto);
+        return ResponseEntity.ok(questService.createQuest(questDto));
     }
 
     @Override
-    public ResponseEntity<Object> deleteQuest(UUID questId) {
-        return null;
+    public ResponseEntity<String> deleteQuest(UUID questId) {
+        questService.deleteQuest(questId);
+        return ResponseEntity.ok(questId + " deleted");
     }
 
     @Override
@@ -31,8 +32,4 @@ public class QuestController implements QuestApi {
         return ResponseEntity.ok(questService.getQuestById(questId));
     }
 
-    @Override
-    public ResponseEntity<Object> updateQuest(QuestDto questId) {
-        return null;
-    }
 }

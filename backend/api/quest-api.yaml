@@ -16,7 +16,8 @@ paths:
           in: path
           required: true
           schema:
-            type: UUID
+            type: string
+            format: UUID
             description: UUID of the quest to get
       responses:
         '200':
@@ -49,35 +50,14 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                type: string
         '400':
           description: Invalid ID supplied
         '404':
           description: Quest not found
 
-    put:
-      tags:
-        - quest
-      summary: Update quest
-      operationId: updateQuest
-      parameters:
-        - name: questId
-          in: path
-          required: true
-          schema:
-            $ref: "#/components/schemas/QuestDto"
-          description: UUID of the quest to update
-      responses:
-        '200':
-          description: Quest updated
-          content:
-            application/json:
-              schema:
-                type: object
-        '400':
-          description: Invalid input
-
   /api/quest:
+
     post:
       tags:
         - quest
