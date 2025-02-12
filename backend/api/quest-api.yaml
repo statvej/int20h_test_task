@@ -106,6 +106,6 @@ components:
           type: string
 
       required:
-        - user
+        - userId
         - title
         - description

@@ -1,8 +1,11 @@
 package com.int20h.quiz.app.services;
 
+import com.int20h.quiz.app.entities.Quest;
+import com.int20h.quiz.app.entities.User;
 import com.int20h.quiz.app.mappers.QuestMapper;
 import com.int20h.quiz.app.model.QuestDto;
 import com.int20h.quiz.app.repositories.QuestRepository;
+import com.int20h.quiz.app.repositories.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,9 +17,16 @@ public class QuestService {
 
     private final QuestRepository questRepository;
     private final QuestMapper questMapper;
+    private final UserRepository userRepository;
 
     public QuestDto createQuest(QuestDto questDto) {
-        return questMapper.questToQuestDTO(questRepository.save(questMapper.questDTOToQuest(questDto)));
+        Quest quest = questMapper.questDTOToQuest(questDto);
+
+        User user = userRepository.findById(questDto.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        quest.setUser(user);
+        return questMapper.questToQuestDTO(questRepository.save(quest));
     }
 
     public QuestDto getQuestById(UUID id) {
