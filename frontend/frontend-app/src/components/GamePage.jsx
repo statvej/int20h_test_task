@@ -34,7 +34,7 @@ const GamePage = () => {
   ];
 
   const { question, questionType, image, options } = quizData[questionIndex];
-  const { timeLeft } = useCountdownTimer(0);
+  const { timeLeft } = useCountdownTimer(5);
   useEffect(() => {
     if (timeLeft === 0) {
       setTimeUp(true);

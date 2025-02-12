@@ -12,13 +12,36 @@ import {
   toggleCorrectAnswer,
   updateCorrectTextAnswer,
   setTestTimer,
+  setQuizTitle,
+  setQuizDescription,
+  setQuizPreviewImage,
 } from "../store/Slices/QuizSlice";
+
+const DEFAULT_IMAGE_URL = "./public/ImgPlaceholder.png";
 
 const QuizCreationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const questions = useSelector((state) => state.quiz.questions);
   const testTimer = useSelector((state) => state.quiz.testTimer);
+  const quizTitle = useSelector((state) => state.quiz.quizTitle);
+  const quizDescription = useSelector((state) => state.quiz.quizDescription);
+  const quizPreviewImage = useSelector((state) => state.quiz.quizPreviewImage) || DEFAULT_IMAGE_URL;
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        dispatch(setQuizPreviewImage(reader.result));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleImageRemove = () => {
+    dispatch(setQuizPreviewImage(DEFAULT_IMAGE_URL));
+  };
 
   const handleSubmit = () => {
     console.log(questions);
@@ -44,19 +67,77 @@ const QuizCreationForm = () => {
   const handleTestTimerChange = (e) => {
     const value = e.target.value;
     if (/^\d*$/.test(value)) {
-      dispatch(setTestTimer(value));
+      const numValue = parseInt(value, 10);
+      if (!isNaN(numValue) && numValue >= 1 && numValue <= 60) {
+        dispatch(setTestTimer(value));
+      } else if (value === "") {
+        dispatch(setTestTimer(""));
+      }
     }
   };
+
+  const isQuizValid = 
+  quizTitle.trim() !== "" &&
+  quizDescription.trim() !== "" &&
+  testTimer.trim() !== "" && 
+  questions.length > 0 &&
+  questions.every((q) =>   
+    q.text.trim() !== "" &&
+    (q.type === "text" 
+      ? q.correct.trim() !== "" 
+      : q.answers.length >= 2 && q.answers.every(a => a.trim() !== "") && q.correct.length > 0)
+  );
 
   return (
     <div>
       <Header />
       <div className="max-w-4xl mx-auto p-6 mt-32 bg-white shadow-lg rounded-lg">
-        <h2 className="text-2xl font-semibold border-b pb-4">Create a Quiz</h2>
-
+        <h2 className="text-2xl font-semibold pb-4">Create a Quiz</h2>
+        
+        <div className="mt-4 p-">
+          <label className="text-xl block font-medium text-gray-700">
+            Quiz Name
+          </label>
+          <input
+            type="text"
+            value={quizTitle}
+            onChange={(e) => dispatch(setQuizTitle(e.target.value))}
+            placeholder="Enter quiz name..."
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div className="p-4 border-b">
+          <label className="block text-xl font-medium text-gray-700">
+            Quiz Description
+          </label>
+          <textarea
+            value={quizDescription}
+            onChange={(e) => dispatch(setQuizDescription(e.target.value))}
+            placeholder="Enter quiz description..."
+            className="w-full p-2 border rounded"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-xl font-medium text-gray-700">
+            Quiz Preview Image
+            </label>
+          <img src={quizPreviewImage} alt="Quiz Preview" className="mt-2 max-w-full max-h-40 object-contain border rounded" />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="mt-2 block w-full p-2 border rounded cursor-pointer"
+          />
+          <button
+            onClick={handleImageRemove}
+            className="mt-2 px-4 py-2 bg-red-500 text-white rounded cursor-pointer"
+          >
+            Remove Image
+          </button>
+        </div>
         <div className="mt-4">
           <label className="block text-sm font-medium text-gray-700">
-            Set Timer (in minutes)
+            Set Timer (from 1 to 60 minutes)
           </label>
           <input
             type="text"
@@ -153,7 +234,12 @@ const QuizCreationForm = () => {
           >
             Add Question
           </button>
-          <button onClick={handleSubmit} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
+          <button 
+            onClick={handleSubmit}
+            disabled={!isQuizValid} 
+            className={`mt-4 px-4 py-2 rounded ${
+            isQuizValid ? "bg-blue-500 text-white cursor-pointer" : "bg-gray-400 text-gray-200 cursor-not-allowed"
+          }`}>
             Submit Quiz
           </button>
         </div>

@@ -170,9 +170,9 @@ const LogIn = () => {
           <button
             onClick={handleLogin}
             type="submit"
-            className={`cursor-pointer mt-2 w-full p-3 rounded-lg text-white transition ${
+            className={` mt-2 w-full p-3  rounded-lg text-white transition ${
               email.trim().length > 0 && password.trim().length > 0
-                ? "bg-black hover:bg-gray-900"
+                ? "bg-black hover:bg-gray-900 cursor-pointer"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
             disabled={email.trim().length === 0 || password.trim().length === 0}
