@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "../store/Slices/UserSlice";
 import Header from "./Header";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import "aos/dist/aos.css";
 
@@ -15,41 +15,12 @@ const LogIn = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    try {
-      const user = localStorage.getItem("user")
-        ? JSON.parse(localStorage.getItem("user"))
-        : null;
-      if(user.data && user.way === "google") {
-        dispatch(
-          setUser({
-            userName: user.data.name,
-            email: user.data.email,
-            picture: user.data.picture,
-            authMethod: user.way,
-          })
-        );
-        navigate("/");
-      }
-      if(user.data && user.way === "local") {
-        dispatch(
-          setUser({
-            email: user.data.email,
-            authMethod: user.way,
-          })
-        );
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Error parsing user data from localStorage:", error);
-      localStorage.removeItem("user");
-    }
-  }, [dispatch, navigate]);
+  
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      // Step 1: Authenticate the user using their email and password
       const res = await axios.post(
         "http://localhost:8080/auth/login",
         {
@@ -61,25 +32,30 @@ const LogIn = () => {
             "Content-Type": "application/json",
           },
         }
-      ); //query to the backend
-      
+      );
+
       if (res.status === 200) {
-        localStorage.setItem("user", {
-          data: res.data,
-          way: "local",
-        });
+        console.log("Logged in successfully:", email);
+        
+        // Step 2: Fetch user data using the provided email
+        const userData = await axios.get(`http://localhost:8080/api/users/email/${email}`);
+
+        // Step 4: Dispatch user data to Redux store
         dispatch(
           setUser({
-            // userName: res.data.name,
-            email: res.data.email,
-            // picture: res.data.picture,
+            email: userData.data.email,
+            userName: userData.data.username,
+            picture: userData.data.profilePicture,
             authMethod: "local",
           })
         );
+
+        // Step 5: Navigate to the homepage or other page
         navigate("/");
-      } //redirect to the main page if statement is true
+      }
     } catch (error) {
-      throw new Error("Error logging in:", error);
+      console.error("Error logging in:", error);
+      alert("Error logging in. Please check your credentials.");
     }
   };
 
@@ -95,13 +71,6 @@ const LogIn = () => {
             },
           }
         );
-
-        const userData = {
-          data: res.data,
-          way: "google",
-        };
-
-        localStorage.setItem("user", JSON.stringify(userData));
         dispatch(
           setUser({
             userName: res.data.name,
@@ -119,7 +88,7 @@ const LogIn = () => {
     onError: (error) => console.error("Login Failed:", error),
   });
 
-  // Проверка валидности
+  // Validation checks
   const isEmailInvalid = isTouched.email && email.trim().length === 0;
   const isPasswordInvalid = isTouched.password && password.trim().length === 0;
 
@@ -141,13 +110,9 @@ const LogIn = () => {
               onBlur={() => setIsTouched({ ...isTouched, email: true })}
               type="email"
               placeholder="Email"
-              className={`w-full p-3 border rounded-lg bg-gray-100 transition ${
-                isEmailInvalid ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full p-3 border rounded-lg bg-gray-100 transition ${isEmailInvalid ? "border-red-500" : "border-gray-300"}`}
             />
-            {isEmailInvalid && (
-              <p className="text-red-500 text-sm">Email is required!</p>
-            )}
+            {isEmailInvalid && <p className="text-red-500 text-sm">Email is required!</p>}
           </div>
 
           <div className="flex flex-col gap-3.5 text-left">
@@ -158,19 +123,15 @@ const LogIn = () => {
               onBlur={() => setIsTouched({ ...isTouched, password: true })}
               type="password"
               placeholder="Password"
-              className={`w-full p-3 border rounded-lg bg-gray-100 transition ${
-                isPasswordInvalid ? "border-red-500" : "border-gray-300"
-              }`}
+              className={`w-full p-3 border rounded-lg bg-gray-100 transition ${isPasswordInvalid ? "border-red-500" : "border-gray-300"}`}
             />
-            {isPasswordInvalid && (
-              <p className="text-red-500 text-sm">Password is required!</p>
-            )}
+            {isPasswordInvalid && <p className="text-red-500 text-sm">Password is required!</p>}
           </div>
 
           <button
             onClick={handleLogin}
             type="submit"
-            className={` mt-2 w-full p-3  rounded-lg text-white transition ${
+            className={`mt-2 w-full p-3 rounded-lg text-white transition ${
               email.trim().length > 0 && password.trim().length > 0
                 ? "bg-black hover:bg-gray-900 cursor-pointer"
                 : "bg-gray-400 cursor-not-allowed"

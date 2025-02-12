@@ -16,8 +16,7 @@ import {
   setQuizDescription,
   setQuizPreviewImage,
 } from "../store/Slices/QuizSlice";
-
-const DEFAULT_IMAGE_URL = "./public/ImgPlaceholder.png";
+import DEFAULT_IMAGE_URL from "/ImgPlaceholder.png";
 
 const QuizCreationForm = () => {
   const dispatch = useDispatch();
