@@ -4,6 +4,7 @@ import com.int20h.quiz.app.api.ReviewApi;
 import com.int20h.quiz.app.model.ReviewDto;
 import com.int20h.quiz.app.services.ReviewService;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,7 +20,8 @@ public class ReviewController implements ReviewApi {
   }
 
   @Override
-  public ResponseEntity<List<ReviewDto>> getReviewsByQuestId(String questId) {
+  public ResponseEntity<List<ReviewDto>> getReviewsByQuestId(UUID questId) {
     return null;
   }
+
 }

@@ -38,7 +38,7 @@ paths:
               in: path
               required: true
               schema:
-                  type: string
+                  type: UUID
                   description: UUID of the quest to get reviews
         responses:
             '200':
@@ -58,18 +58,18 @@ components:
     ReviewDto:
       type: object
       required:
-        - authorId
+        - authorEmail
         - rating
         - questId
       properties:
-        authorId:
+        authorEmail:
           type: string
-          description: The ID of the author
+          description: The email of the author
         rating:
           type: number
           description: The rating of the review
         questId:
-          type: string
+          type: UUID
           description: The ID of the quest
         comment:
           type: string
