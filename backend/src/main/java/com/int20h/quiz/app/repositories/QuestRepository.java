@@ -1,8 +1,8 @@
 package com.int20h.quiz.app.repositories;
 
-import com.int20h.quiz.app.entity.Quest;
 import java.util.Optional;
 import java.util.UUID;
+import com.int20h.quiz.app.entities.Quest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

@@ -1,0 +1,131 @@
+openapi: 3.0.3
+info:
+  title: Title
+  description: Title
+  version: 1.0.0
+
+paths:
+  /api/quest{questId}:
+    get:
+      tags:
+        - quest
+      summary: Get quest
+      operationId: getQuest
+      parameters:
+        - name: questId
+          in: path
+          required: true
+          schema:
+            type: UUID
+            description: UUID of the quest to get
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuestDto"
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: quest not found
+
+    delete:
+      tags:
+        - quest
+      summary: Delete quest
+      operationId: deleteQuest
+      parameters:
+        - name: questId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: UUID
+            description: UUID of the quest to delete
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Quest not found
+
+    put:
+      tags:
+        - quest
+      summary: Update quest
+      operationId: updateQuest
+      parameters:
+        - name: questId
+          in: path
+          required: true
+          schema:
+            $ref: "#/components/schemas/QuestDto"
+          description: UUID of the quest to update
+      responses:
+        '200':
+          description: Quest updated
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Invalid input
+
+  /api/quest:
+    post:
+      tags:
+        - quest
+      summary: Create quest
+      operationId: createQuest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestDto"
+      responses:
+        '201':
+          description: Quest created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuestDto"
+        '400':
+          description: Invalid input
+
+components:
+  schemas:
+    QuestDto:
+      type: object
+      properties:
+        id:
+          type: string
+          format: UUID
+        userId:
+          type: string
+          format: UUID
+        reviewId:
+          type: string
+          format: UUID
+        title:
+          type: string
+        description:
+          type: string
+        time_limit:
+          type: integer
+        average_rating:
+          type: number
+          format: float
+        multimedia:
+          type: string
+
+      required:
+        - user
+        - title
+        - description

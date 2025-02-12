@@ -1,7 +1,7 @@
 package com.int20h.quiz.app.security;
 
-import com.int20h.quiz.app.entity.User;
-import com.int20h.quiz.app.entity.VerificationToken;
+import com.int20h.quiz.app.entities.User;
+import com.int20h.quiz.app.entities.VerificationToken;
 import com.int20h.quiz.app.enums.Role;
 import com.int20h.quiz.app.repositories.UserRepository;
 import com.int20h.quiz.app.repositories.VerificationTokenRepository;

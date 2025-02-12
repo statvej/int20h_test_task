@@ -1,6 +1,6 @@
 package com.int20h.quiz.app.repositories;
 
-import com.int20h.quiz.app.entity.User;
+import com.int20h.quiz.app.entities.User;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
