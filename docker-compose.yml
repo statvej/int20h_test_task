@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   postgres:
     image: postgres
@@ -11,6 +10,9 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres_network   # <-- Add this line
+
   mailhog:
     image: mailhog/mailhog
     ports:
@@ -19,8 +21,37 @@ services:
     networks:
       - mailhog_network
 
+  frontend:
+    build:
+      context: ./frontend/frontend-app  # Directory containing the Dockerfile and app
+      dockerfile: Dockerfile
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    networks:
+      - mailhog_network
+
+  backend:
+    build:
+      context: ./backend  # Directory containing the Dockerfile and app
+      dockerfile: Dockerfile
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/app
+      - SPRING_DATASOURCE_USER=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+    ports:
+      - "8080:8080"
+    networks:
+      - mailhog_network
+      - postgres_network
+    depends_on:
+      - postgres
+      - mailhog
+
 networks:
   mailhog_network:
+    driver: bridge
+  postgres_network:
     driver: bridge
 
 volumes:
