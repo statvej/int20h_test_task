@@ -45,21 +45,41 @@ const QuizCreationForm = () => {
   };
 
   const getUser = async () => {
-    const user1 = axios.get(`http://localhost:5000/api/users/email/${user.email}`);
+    const user1 = axios.get(`http://localhost:8080/api/users/email/${user.email}`);
     return user1.id;
   };
   const postQuiz = async () => {
-    const quiz = axios.post("http://localhost:5000/api/quest", {
-      title: quizTitle,
-      description: quizDescription,
-      time_limit: testTimer,
-      multimedia: quizPreviewImage,
-      user_id: getUser(),
-    });
-    if(quiz.status === 200) {
-      alert("Quiz created successfully!", quiz);
+    try {
+      const userId = await getUser(); // Ensure the user ID is fetched correctly
+      const quizData = {
+        title: quizTitle,
+        description: quizDescription,
+        time_limit: testTimer,
+        multimedia: quizPreviewImage,
+        userId, // Use the correct user ID from getUser()
+        questions: questions.map(question => ({
+          question: question.text, // Assuming this is the question text
+          answers: question.answers,
+          rightAnswersIndexes: question.correct.map(index => index), // Correct answer indexes (based on your data structure)
+          type: question.type.toUpperCase(), // Assuming the type is either "OPEN_ANSWER" or similar
+          quest: question.id, // Use unique ID for each question (you need to ensure each question has a unique ID)
+          multimedia: question.image || "", // Handle multimedia for each question (images, etc.)
+        })),
+        average_rating: 0, // As the default value provided
+      };
+  
+      const response = await axios.post("http://localhost:8080/api/quest", quizData);
+  
+      if (response.status === 200) {
+        alert("Quiz created successfully!");
+        navigate("/"); // Redirect after successful creation
+      }
+    } catch (error) {
+      console.error("Error creating quiz:", error);
+      alert("An error occurred while creating the quiz.");
     }
   };
+  
 
   const handleSubmit = () => {
     console.log(questions);
