@@ -17,9 +17,6 @@ public class ReviewService {
   private final ReviewMapper reviewMapper;
 
   public ReviewDto createReview(ReviewDto reviewDto) {
-<<<<<<< HEAD
-    return null;
-=======
     final var user = userRepository.findByEmail(reviewDto.getAuthorEmail()).orElseThrow(() -> new RuntimeException("User not found"));
     final var quest = questRepository.findById(reviewDto.getQuestId()).orElseThrow(() -> new RuntimeException("Quest not found"));
     var review = reviewMapper.dtoToEntity(reviewDto);
@@ -27,7 +24,6 @@ public class ReviewService {
     review.setQuest(quest);
     final var returnReview = reviewRepository.save(review);
     return reviewMapper.entityToDto(returnReview);
->>>>>>> 33be6bbbf919d275c05f539dcd3d3a918fd9e754
   }
 
 }
