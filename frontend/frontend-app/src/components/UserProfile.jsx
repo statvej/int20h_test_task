@@ -14,7 +14,7 @@ const UserProfile = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1);
+    navigate('/');
   };
 
   const handleLogout = () => {
