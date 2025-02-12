@@ -1,4 +1,4 @@
-package com.int20h.quiz.app.entity;
+package com.int20h.quiz.app.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
@@ -19,11 +19,11 @@ public class Quest {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id")
-    private User user;
+    @JoinColumn
+    private User userId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Review review;
+    @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> review;
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<QuestionMaster> questions;
@@ -35,11 +35,11 @@ public class Quest {
     private String description;
 
     @Column
-    private Integer time_limit;
+    private Integer timeLimit;
 
     @Column
     @DecimalMax(value = "5.0")
-    private float average_rating;
+    private float averageRating;
 
     @Column
     private String multimedia;

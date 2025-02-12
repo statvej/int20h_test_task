@@ -1,4 +1,4 @@
-package com.int20h.quiz.app.entity;
+package com.int20h.quiz.app.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
@@ -30,9 +30,6 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quest_id")
     private Quest quest;
-
-    @Column
-    private String content;
 
     @Column(nullable = false)
     @DecimalMax(value = "5.0")
