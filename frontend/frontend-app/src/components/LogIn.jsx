@@ -7,7 +7,7 @@ import { setUser } from "../store/Slices/UserSlice";
 import Header from "./Header";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import 'aos/dist/aos.css';
+import "aos/dist/aos.css";
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +22,7 @@ const LogIn = () => {
       const user = localStorage.getItem("user")
         ? JSON.parse(localStorage.getItem("user"))
         : null;
-      if (user) {
+      if(user.data && user.way === "google") {
         dispatch(
           setUser({
             userName: user.data.name,
@@ -33,11 +33,56 @@ const LogIn = () => {
         );
         navigate("/");
       }
+      if(user.data && user.way === "local") {
+        dispatch(
+          setUser({
+            email: user.data.email,
+            authMethod: user.way,
+          })
+        );
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error parsing user data from localStorage:", error);
       localStorage.removeItem("user");
     }
   }, [dispatch, navigate]);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/auth/login",
+        {
+          email,
+          password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      ); //query to the backend
+      
+      if (res.status === 200) {
+        localStorage.setItem("user", {
+          data: res.data,
+          way: "local",
+        });
+        dispatch(
+          setUser({
+            // userName: res.data.name,
+            email: res.data.email,
+            // picture: res.data.picture,
+            authMethod: "local",
+          })
+        );
+        navigate("/");
+      } //redirect to the main page if statement is true
+    } catch (error) {
+      throw new Error("Error logging in:", error);
+    }
+  };
 
   const login = useGoogleLogin({
     onSuccess: async (codeResponse) => {
@@ -101,7 +146,9 @@ const LogIn = () => {
                 isEmailInvalid ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {isEmailInvalid && <p className="text-red-500 text-sm">Email is required!</p>}
+            {isEmailInvalid && (
+              <p className="text-red-500 text-sm">Email is required!</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-3.5 text-left">
@@ -116,10 +163,13 @@ const LogIn = () => {
                 isPasswordInvalid ? "border-red-500" : "border-gray-300"
               }`}
             />
-            {isPasswordInvalid && <p className="text-red-500 text-sm">Password is required!</p>}
+            {isPasswordInvalid && (
+              <p className="text-red-500 text-sm">Password is required!</p>
+            )}
           </div>
 
           <button
+            onClick={handleLogin}
             type="submit"
             className={`cursor-pointer mt-2 w-full p-3 rounded-lg text-white transition ${
               email.trim().length > 0 && password.trim().length > 0

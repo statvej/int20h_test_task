@@ -1,10 +1,32 @@
 import Header from "./Header";
 import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Verify = () => {
+  const navigate = useNavigate();
   const [code, setCode] = useState("");
   const [isTouched, setIsTouched] = useState(false);
   const isInvalid = isTouched && code.trim().length === 0;
+
+  const handleVerify = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.get(`http://localhost:8080/auth/verify/${code}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if(res.status === 200)
+        navigate("/login");
+      else
+        throw new Error("Error verifying code:", res);
+    } catch (error) {
+      throw new Error("Error verifying code:", error);
+    }
+  }
 
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
@@ -22,9 +44,10 @@ const Verify = () => {
               value={code}
               onChange={(e) => setCode(e.target.value)}
               onBlur={() => setIsTouched(true)}
-            />  
+            />
           </div>
           <button 
+            onClick={handleVerify}
             type="submit"
             className={`mt-6 w-full p-3 rounded-lg text-white transition ${
               code.trim().length > 0
