@@ -15,9 +15,6 @@ public class ReviewService {
   private final QuestRepository questRepository;
 
   public ReviewDto createReview(ReviewDto reviewDto) {
-    final var user = userRepository.findByEmail(reviewDto.getAuthorEmail()).orElseThrow(() -> new RuntimeException("User not found"));
-    final var quest = questRepository.findById(reviewDto.getQuestId()).orElseThrow(() -> new RuntimeException("Quest not found"));
-    reviewRepository.save(ReviewDto.toEntity(reviewDto, user, quest));
     return null;
   }
 
