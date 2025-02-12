@@ -39,6 +39,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/app
       - SPRING_DATASOURCE_USER=admin
       - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_MAIL_HOST=mailhog
     ports:
       - "8080:8080"
     networks:
