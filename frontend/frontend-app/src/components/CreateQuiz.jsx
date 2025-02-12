@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
+import axios from "axios";
 import Header from "./Header";
 import {
   addQuestion,
@@ -21,6 +22,7 @@ import DEFAULT_IMAGE_URL from "/ImgPlaceholder.png";
 const QuizCreationForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const questions = useSelector((state) => state.quiz.questions);
   const testTimer = useSelector((state) => state.quiz.testTimer);
   const quizTitle = useSelector((state) => state.quiz.quizTitle);
@@ -42,9 +44,27 @@ const QuizCreationForm = () => {
     dispatch(setQuizPreviewImage(DEFAULT_IMAGE_URL));
   };
 
+  const getUser = async () => {
+    const user1 = axios.get(`http://localhost:5000/api/users/email/${user.email}`);
+    return user1.id;
+  };
+  const postQuiz = async () => {
+    const quiz = axios.post("http://localhost:5000/api/quest", {
+      title: quizTitle,
+      description: quizDescription,
+      time_limit: testTimer,
+      multimedia: quizPreviewImage,
+      user_id: getUser(),
+    });
+    if(quiz.status === 200) {
+      alert("Quiz created successfully!", quiz);
+    }
+  };
+
   const handleSubmit = () => {
     console.log(questions);
     console.log(testTimer);
+    postQuiz();
     navigate("/");
   };
 
