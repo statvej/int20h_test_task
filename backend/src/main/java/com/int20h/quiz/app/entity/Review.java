@@ -2,7 +2,10 @@ package com.int20h.quiz.app.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
@@ -10,7 +13,10 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@Builder
 @Table
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
 
     @Id
@@ -21,7 +27,7 @@ public class Review {
     @JoinColumn(name = "creator_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quest_id")
     private Quest quest;
 

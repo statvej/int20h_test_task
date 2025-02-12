@@ -22,7 +22,7 @@ public class Quest {
     @JoinColumn(name = "creator_id")
     private User user;
 
-    @OneToOne(mappedBy = "quest", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Review review;
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL, orphanRemoval = true)
