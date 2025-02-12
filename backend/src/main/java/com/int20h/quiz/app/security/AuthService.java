@@ -82,7 +82,7 @@ public class AuthService {
   }
 
   private void sendVerificationEmail(String email, String token) {
-    String confirmationUrl = "http://localhost:8080/auth/verify?token=" + token;
+    String confirmationUrl = "http://localhost:3000/verify?token=" + token;
 
     emailService.sendSimpleEmail(email, "Verify your email for ThinkExe",
                                  "Please click the link below to verify your email:\n" + confirmationUrl);

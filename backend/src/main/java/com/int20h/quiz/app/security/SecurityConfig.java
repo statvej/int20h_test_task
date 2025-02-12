@@ -1,5 +1,7 @@
 package com.int20h.quiz.app.security;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.util.Collections;
@@ -10,8 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.oauth2.server.resource.OAuth2ResourceServerConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -29,18 +29,26 @@ public class SecurityConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http
-      .cors(AbstractHttpConfigurer::disable)
-      .csrf(AbstractHttpConfigurer::disable)
+    http
+      // Enable CORS support using the default settings (which will pick up our CorsConfigurationSource bean)
+      .cors(withDefaults())
+      // Disable CSRF (as needed for stateless APIs)
+      .csrf(csrf -> csrf.disable())
+      // Use stateless session management
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-      .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/auth/**").permitAll()  // Allow public access
-        .requestMatchers("/openapi/**").permitAll()  // Allow public access
-        .requestMatchers("/api/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")  // Restrict access
-        .anyRequest().authenticated()
-      )
-      .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
-      .build();
+      // Configure URL-based authorization rules
+      .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**")
+        .permitAll()
+        .requestMatchers("/openapi/**")
+        .permitAll()
+        .requestMatchers("/api/**")
+        .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+        .anyRequest()
+        .authenticated())
+      // Configure the OAuth2 resource server with JWT support
+      .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+
+    return http.build();
   }
 
   @Bean

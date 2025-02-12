@@ -62,13 +62,15 @@ const SignIn = () => {
           },
         }
       );
-      if (response.ok) {
+  
+      // Check the correct response status
+      if (response.status >= 200 && response.status < 300) {
         navigate("/verify");
       } else {
-        throw new Error(response.statusText);
+        throw new Error(`Request failed with status ${response.status}`);
       }
     } catch (error) {
-      throw new Error(error);
+      console.error("Registration error:", error);
     }
   };
 
