@@ -30,7 +30,8 @@ public class SecurityConfig {
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http
-      .csrf(csrf -> csrf.disable())
+      .cors(AbstractHttpConfigurer::disable)
+      .csrf(AbstractHttpConfigurer::disable)
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(auth -> auth
         .requestMatchers("/auth/**").permitAll()  // Allow public access
