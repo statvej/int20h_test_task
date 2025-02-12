@@ -1,4 +1,4 @@
-package com.int20h.quiz.app.entity;
+package com.int20h.quiz.app.entities;
 
 import com.int20h.quiz.app.enums.Role;
 import jakarta.persistence.*;

@@ -1,7 +1,7 @@
 package com.int20h.quiz.app.security;
 
-import com.int20h.quiz.app.entity.User;
-import com.int20h.quiz.app.entity.VerificationToken;
+import com.int20h.quiz.app.entities.User;
+import com.int20h.quiz.app.entities.VerificationToken;
 import com.int20h.quiz.app.enums.Role;
 import com.int20h.quiz.app.repositories.UserRepository;
 import com.int20h.quiz.app.repositories.VerificationTokenRepository;
@@ -82,7 +82,7 @@ public class AuthService {
   }
 
   private void sendVerificationEmail(String email, String token) {
-    String confirmationUrl = "http://localhost:8080/auth/verify?token=" + token;
+    String confirmationUrl = "http://localhost:3000/verify?token=" + token;
 
     emailService.sendSimpleEmail(email, "Verify your email for ThinkExe",
                                  "Please click the link below to verify your email:\n" + confirmationUrl);
