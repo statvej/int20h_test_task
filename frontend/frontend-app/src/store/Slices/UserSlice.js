@@ -8,7 +8,9 @@ export const userSlice = createSlice({
         picture: "",
         isAuthenticated: false,
         authMethod: "", // "google" or "email"
-        likedGames: [], // Array of liked quizzes
+        rating: 0,
+        gameHistoruy: [],
+        createdGames: [],
     },
     reducers: {
         setUser: (state, action) => {
