@@ -50,9 +50,9 @@ const Main = () => {
             key={game}
             className="list-none"
             whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileTap={{ scale: 1.9 }}
             data-aos="fade-up"
-            data-aos-delay={index * 50} // Stagger the animations
+            data-aos-delay={index * 1} // Stagger the animations
             data-aos-duration="1000"
           >
             <MainGameCards />

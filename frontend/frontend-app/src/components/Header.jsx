@@ -9,10 +9,11 @@ const Header = (props) => {
   const user = useSelector((state) => state.user);
   if (props.flag === "0") {
     return (
-      <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4">
+      <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4 z-50">
         <div className="flex items-center">
           <Link to="/" className="cursor-pointer">
-            <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
+            <img src="/titleText.png" alt="Logo" className="h-40 w-50 mt-4 just" />
+            {/* <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1> */}
           </Link>
         </div>
 
@@ -26,10 +27,11 @@ const Header = (props) => {
     );
   } else if (props.flag === "2") {
     return (
-      <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4">
+      <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4 z-50">
         <div className="flex items-center">
           <Link to="/" className="cursor-pointer">
-            <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
+            <img src="/titleText.png" alt="Logo" className="h-40 w-50 mt-4 just" />
+            {/* <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1> */}
           </Link>
         </div>
 
@@ -43,10 +45,11 @@ const Header = (props) => {
     );
   } else {
     return (
-      <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4">
+      <header className="fixed top-0 left-0 flex w-full h-16 justify-between items-center bg-gray-900 shadow-md px-4 z-50">
         <div className="flex items-center">
           <Link to="/" className="cursor-pointer">
-            <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1>
+            <img src="/titleText.png" alt="Logo" className="h-40 w-50 mt-4 just" />
+            {/* <h1 className="text-white font-bold text-2xl mr-4">QuizQuizQuiz</h1> */}
           </Link>
         </div>
 
