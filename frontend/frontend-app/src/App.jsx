@@ -10,13 +10,17 @@ import QuizCreationForm from "./components/CreateQuiz";
 import { ErrorBoundary } from "react-error-boundary";
 import GamePage from "./components/GamePage";
 import GameResult from "./components/GameResult";
+import { Link } from "react-router-dom";
 
 function App() {
   return (
     <ErrorBoundary
       fallback={
         <div className="h-screen flex flex-col justify-center items-center text-3xl">
-          Something went wrong!
+          Something went wrong! <br />
+          <Link to={-1} className="cursor-pointer text-blue-500 hover:text-blue-700 underline mt-4">
+            Go back
+          </Link>
         </div>
       }
     >
@@ -35,7 +39,10 @@ function App() {
             path="*"
             element={
               <div className="h-screen flex flex-col justify-center items-center text-3xl">
-                404 Error Not Found! Try again.
+                404 Error Not Found! 
+                <Link to={-1} className="cursor-pointer text-blue-500 hover:text-blue-700 underline mt-4">
+                  Go back
+                </Link>
               </div>
             }
           />
