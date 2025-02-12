@@ -1,7 +1,6 @@
 package com.int20h.quiz.app.services;
 
-import com.int20h.quiz.app.entities.Quest;
-import com.int20h.quiz.app.mapper.QuestMapper;
+import com.int20h.quiz.app.mappers.QuestMapper;
 import com.int20h.quiz.app.model.QuestDto;
 import com.int20h.quiz.app.repositories.QuestRepository;
 import org.springframework.stereotype.Service;
