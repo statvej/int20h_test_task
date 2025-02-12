@@ -27,7 +27,7 @@ public class Review {
     @JoinColumn(name = "creator_id")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quest_id")
     private Quest quest;
 
