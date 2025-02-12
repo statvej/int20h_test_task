@@ -10,6 +10,7 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -28,6 +29,7 @@ public class SecurityConfig {
   private String secretKey;
 
   @Bean
+  @Profile("oauth2")
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
       // Enable CORS support using the default settings (which will pick up our CorsConfigurationSource bean)
@@ -47,6 +49,24 @@ public class SecurityConfig {
         .authenticated())
       // Configure the OAuth2 resource server with JWT support
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
+
+    return http.build();
+  }
+
+  @Bean
+  @Profile("dev")
+  public SecurityFilterChain securityFilterChainDev(HttpSecurity http) throws Exception {
+    http
+      // Enable CORS support using the default settings (which will pick up our CorsConfigurationSource bean)
+      .cors(withDefaults())
+      // Disable CSRF (as needed for stateless APIs)
+      .csrf(csrf -> csrf.disable())
+      // Use stateless session management
+      .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+      // Configure URL-based authorization rules
+      .authorizeHttpRequests(auth -> auth
+        .anyRequest()
+        .permitAll());
 
     return http.build();
   }
