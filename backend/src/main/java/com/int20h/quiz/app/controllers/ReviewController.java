@@ -22,7 +22,7 @@ public class ReviewController implements ReviewApi {
 
   @Override
   public ResponseEntity<List<ReviewDto>> getReviewsByQuestId(UUID questId) {
-    return null;
+    return new ResponseEntity<>(reviewService.getReviewsByQuestId(questId), HttpStatus.OK);
   }
 
 }

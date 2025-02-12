@@ -19,6 +19,7 @@ paths:
           required: true
           schema:
             type: string
+            format: uuid
             description: UUID of the user to get
       responses:
         '200':
@@ -26,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/UserDto'
         '400':
           description: Invalid ID supplied
         '404':
@@ -48,14 +49,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
+              $ref: '#/components/schemas/UserDto'
       responses:
         '200':
           description: successful operation
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/UserDto'
         '400':
           description: Invalid ID supplied
         '404':
@@ -79,29 +80,30 @@ paths:
           description: Invalid ID supplied
         '404':
           description: User not found
-  /api/users:
-    post:
+  /api/users/email/{email}:
+    get:
       tags:
         - user
-      summary: Create user
-      operationId: createUser
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
+      summary: Get user by email
+      operationId: getUserByEmail
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+            description: Email of the user to get
       responses:
-        '201':
-          description: User created
+        '200':
+          description: successful operation
           content:
             application/json:
               schema:
-                type: object
+                $ref: '#/components/schemas/UserDto'
         '400':
-          description: Invalid input
-      security:
-        - api_key: []
+          description: Invalid email supplied
+        '404':
+          description: User not found
 
 components:
   schemas:
@@ -110,6 +112,7 @@ components:
       properties:
         id:
           type: string
+          format: uuid
         username:
           type: string
         password:

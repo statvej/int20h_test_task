@@ -1,6 +1,6 @@
 package com.int20h.quiz.app.security;
 
-import com.int20h.quiz.app.entity.User;
+import com.int20h.quiz.app.entities.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;

@@ -1,11 +1,9 @@
-package com.int20h.quiz.app.entity;
+package com.int20h.quiz.app.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.aspectj.weaver.patterns.TypePatternQuestions;
 
-import java.util.List;
 import java.util.UUID;
 
 @Entity

@@ -1,6 +1,6 @@
 package com.int20h.quiz.app.repositories;
 
-import com.int20h.quiz.app.entity.VerificationToken;
+import com.int20h.quiz.app.entities.VerificationToken;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;

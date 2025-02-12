@@ -8,6 +8,8 @@ app:
     origins: "*"
     headers: "*"
 spring:
+  profiles:
+    active: dev
   mail:
     from: thinkexe@localhost.com
     host: localhost

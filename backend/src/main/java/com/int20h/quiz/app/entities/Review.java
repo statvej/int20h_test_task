@@ -1,4 +1,4 @@
-package com.int20h.quiz.app.entity;
+package com.int20h.quiz.app.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
@@ -14,7 +14,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@Table
+@Table(
+  uniqueConstraints = @UniqueConstraint(columnNames = {"creator_id", "quest_id"})
+)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
@@ -30,9 +32,6 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quest_id")
     private Quest quest;
-
-    @Column
-    private String content;
 
     @Column(nullable = false)
     @DecimalMax(value = "5.0")
