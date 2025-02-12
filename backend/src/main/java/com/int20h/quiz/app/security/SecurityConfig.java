@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,9 +45,8 @@ public class SecurityConfig {
         .requestMatchers("/openapi/**")
         .permitAll()
         .requestMatchers("/api/**")
-        .hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-        .anyRequest()
-        .authenticated())
+        .permitAll()
+        )
       // Configure the OAuth2 resource server with JWT support
       .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
@@ -60,7 +60,7 @@ public class SecurityConfig {
       // Enable CORS support using the default settings (which will pick up our CorsConfigurationSource bean)
       .cors(withDefaults())
       // Disable CSRF (as needed for stateless APIs)
-      .csrf(csrf -> csrf.disable())
+      .csrf(AbstractHttpConfigurer::disable)
       // Use stateless session management
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       // Configure URL-based authorization rules

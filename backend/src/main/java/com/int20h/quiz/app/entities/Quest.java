@@ -26,7 +26,7 @@ public class Quest {
     private List<Review> review;
 
     @OneToMany(mappedBy = "quest", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QuestionMaster> questions;
+    private List<Question> questions;
 
     @Column
     private String title;

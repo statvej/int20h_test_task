@@ -1,6 +1,5 @@
 package com.int20h.quiz.app.services;
 
-import com.int20h.quiz.app.entities.Review;
 import com.int20h.quiz.app.exceptions.InternalServerErrorException;
 import com.int20h.quiz.app.exceptions.ResourceNotFoundException;
 import com.int20h.quiz.app.mappers.ReviewMapper;
@@ -10,13 +9,44 @@ import com.int20h.quiz.app.repositories.ReviewRepository;
 import com.int20h.quiz.app.repositories.UserRepository;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ReviewService {
+public class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ReviewService {
   private final ReviewRepository reviewRepository;
   private final UserRepository userRepository;
   private final QuestRepository questRepository;
