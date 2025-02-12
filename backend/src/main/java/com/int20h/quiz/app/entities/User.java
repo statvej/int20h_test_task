@@ -1,4 +1,4 @@
-package com.int20h.quiz.app.entity;
+package com.int20h.quiz.app.entities;
 
 import com.int20h.quiz.app.enums.Role;
 import jakarta.persistence.*;
@@ -33,7 +33,7 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
     private  List<Quest> quests;
 
     @NotBlank(message = "Email is required")

@@ -1,4 +1,4 @@
-package com.int20h.quiz.app.entity;
+package com.int20h.quiz.app.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
