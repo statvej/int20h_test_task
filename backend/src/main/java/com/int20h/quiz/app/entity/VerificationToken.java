@@ -24,7 +24,7 @@ public class VerificationToken {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private UUID id;
 
   private String token;
 
