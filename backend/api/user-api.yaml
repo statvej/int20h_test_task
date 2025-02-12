@@ -115,8 +115,6 @@ components:
           format: uuid
         username:
           type: string
-        password:
-          type: string
         email:
           type: string
           format: email
