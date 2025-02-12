@@ -3,14 +3,26 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   questions: [],
   testTimer: "",
+  quizTitle: "",
+  quizDescription: "",
+  quizPreviewImage: "",
 };
 
 const quizSlice = createSlice({
   name: "quiz",
   initialState,
   reducers: {
+    setQuizTitle: (state, action) => {
+      state.quizTitle = action.payload;
+    },
+    setQuizDescription: (state, action) => {
+      state.quizDescription = action.payload;
+    },
     setTestTimer: (state, action) => {
       state.testTimer = action.payload;
+    },
+    setQuizPreviewImage: (state, action) => {
+      state.quizPreviewImage = action.payload;
     },
     addQuestion: (state) => {
       if (state.questions.length >= 10) return;
@@ -70,7 +82,10 @@ const quizSlice = createSlice({
 });
 
 export const {
+  setQuizTitle,
+  setQuizDescription,
   setTestTimer,
+  setQuizPreviewImage,
   addQuestion,
   deleteQuestion,
   updateQuestion,
