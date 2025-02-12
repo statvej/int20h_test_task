@@ -9,6 +9,8 @@ import {
   setIsTouched,
   setPassword,
 } from "../store/Slices/SignInSlice";
+import { motion } from 'framer-motion';
+import 'aos/dist/aos.css';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -62,6 +64,8 @@ const SignIn = () => {
       );
       if (response.ok) {
         navigate("/verify");
+      } else {
+        throw new Error(response.statusText);
       }
     } catch (error) {
       throw new Error(error);
@@ -71,7 +75,12 @@ const SignIn = () => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       <Header flag="2" />
-      <div className="mt-20 w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md">
+      <motion.div
+        className="mt-20 w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md"
+        data-aos="fade-in"
+        data-aos-delay={100} // Stagger the animations
+        data-aos-duration="1000"
+      >
         <form className="space-y-4">
           <div className="flex flex-col gap-1.5 text-left">
             <label className="block text-gray-700 font-medium">Username</label>
@@ -147,7 +156,7 @@ const SignIn = () => {
           </button>
           {/* </Link> */}
         </form>
-      </div>
+      </motion.div>
     </div>
   );
 };

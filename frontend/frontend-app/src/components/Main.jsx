@@ -4,6 +4,8 @@ import Header from "./Header";
 import { useSelector } from "react-redux";
 import MainGameCards from "./MainGameCards";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import "aos/dist/aos.css";
 
 const Main = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -43,10 +45,18 @@ const Main = () => {
         </div>
       </div>
       <section className="grid grid-cols-3 gap-20 justify-center mt-20">
-        {[1, 2, 3, 4, 5, 6].map((game) => (
-          <div key={game} className="list-none">
+        {[1, 2, 3, 4, 5, 6].map((game, index) => (
+          <motion.div
+            key={game}
+            className="list-none"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            data-aos="fade-up"
+            data-aos-delay={index * 50} // Stagger the animations
+            data-aos-duration="1000"
+          >
             <MainGameCards />
-          </div>
+          </motion.div>
         ))}
       </section>
     </div>

@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../store/Slices/UserSlice";
 import Header from "./Header";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import 'aos/dist/aos.css';
 
 const LogIn = () => {
   const [email, setEmail] = useState("");
@@ -80,7 +82,12 @@ const LogIn = () => {
   return (
     <div className="flex flex-col min-h-screen items-center justify-center">
       <Header flag="0" />
-      <div className="w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md">
+      <motion.div
+        className="w-full max-w-sm bg-gray-100 p-6 rounded-lg shadow-md"
+        data-aos="fade-in"
+        data-aos-delay={100}
+        data-aos-duration="1000"
+      >
         <form className="space-y-4">
           <div className="flex flex-col gap-3.5 text-left">
             <label className="block text-gray-700 font-medium">Email</label>
@@ -133,7 +140,7 @@ const LogIn = () => {
             Sign in with Google 🚀
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

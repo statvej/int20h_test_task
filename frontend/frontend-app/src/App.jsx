@@ -11,6 +11,13 @@ import { ErrorBoundary } from "react-error-boundary";
 import GamePage from "./components/GamePage";
 import GameResult from "./components/GameResult";
 import { Link } from "react-router-dom";
+import AOS from 'aos';
+
+AOS.init(
+  {
+      once: true,
+  }
+);
 
 function App() {
   return (
