@@ -9,3 +9,16 @@
 
 ## How to run
 1. Clone the repository
+
+
+| **functionality** | **Frontend** | **Connected** | **Backend**      |
+|-------------------|--------------|---------------|------------------|
+| register          | +            | +             | +                |
+| login             | +            | +             | +                |
+| mail verify       |   +           | -             | +                |
+| jwt auth          |         +     | +             | +(no checks tho) |
+| get user          |       +       | +             | +                |
+| quiz create       |     +         | -             | +                |
+| quiz walkthrough  |        +      | -             | -                |
+| reviews           |    +          | -             | +                |
+| history           |   -           | -             | -                |
