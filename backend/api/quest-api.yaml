@@ -81,6 +81,34 @@ paths:
 
 components:
   schemas:
+    QuestionDto:
+      type: object
+      properties:
+        id:
+          type: string
+        quest:
+          type: string
+          format: UUID
+        type:
+          type: string
+          enum:
+            - OPEN_ANSWER
+            - ONE_ANSWER
+            - SEVERAL_ANSWERS
+        multimedia:
+          type: string
+        question:
+          type: string
+        answers:
+          type: array
+          items:
+            type: string
+        rightAnswersIndexes:
+          type: array
+          items:
+            type: integer
+
+
     QuestDto:
       type: object
       properties:
@@ -104,8 +132,12 @@ components:
           format: float
         multimedia:
           type: string
+        questions:
+          type: array
+          items:
+            $ref: "#/components/schemas/QuestionDto"
 
       required:
-        - user
+        - userId
         - title
-        - description
+        - questions

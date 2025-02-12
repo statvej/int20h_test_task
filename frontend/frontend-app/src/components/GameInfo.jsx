@@ -6,6 +6,7 @@ import StarRating from "./Star";
 import { useState } from "react";
 import MainGameCards from "./MainGameCards";
 import { Link } from "react-router-dom";
+import ImgPlaceholder from "/ImgPlaceholder.png"
 
 const GameInfo = () => {
     const [rating, setRating] = useState(3);
@@ -39,8 +40,8 @@ const GameInfo = () => {
                         </div>
                     </div>
                     <div className="w-2/3">
-                        <div className="w-full h-80 bg-gray-300 flex items-center justify-center">
-                            <span className="text-gray-500">Image Placeholder</span>
+                        <div className="w-full h-full bg-gray-300 flex items-center justify-center">
+                            <img src={ImgPlaceholder} alt="Image Placeholder" className="w-auto h-auto"/>
                         </div>
                     </div>
                 </div>
