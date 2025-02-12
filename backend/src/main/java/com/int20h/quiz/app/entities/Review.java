@@ -14,7 +14,9 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@Table
+@Table(
+  uniqueConstraints = @UniqueConstraint(columnNames = {"creator_id", "quest_id"})
+)
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
